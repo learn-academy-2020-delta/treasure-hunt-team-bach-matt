@@ -6,23 +6,25 @@ class App extends Component{
   constructor(props){
     super(props)
     this.state = {
-      squares: [...Array(9).fill(" ")]
+      squares: [...Array(9).fill(" ")],
+      questionMark: "?",
+      tree: "tree"
     }
   }
 
-  showPosition = (currentSquareIndex) => {
-    let {squares} = this.state
-    // alert(this.squares.index)
-    console.log(square)
+  handleChange = (currentIndex) => {
+    let { squares, tree } = this.state
+
+    this.setState({ squares: "tree" })
   }
 
   render(){
-    let {squares} = this.state
+    let { squares, questionMark, tree } = this.state
     let squareUnits = squares.map((square, index) => {
       return(
         <Square
-        showPosition = {this.showPosition}
-        questionMark = {square}
+        tree = { this.handleChange }
+        questionMark = { questionMark }
         index = {index}
         key = {index}
         />
