@@ -8,7 +8,7 @@ class App extends Component{
     this.state = {
       squares: [...Array(25).fill("?")],
       treasure: Math.floor(Math.random()* 24),
-      bombLocation: [{ bomb: Math.floor(Math.random()* 8 )}, { bomb: Math.floor(Math.random()* 16 ) + 8 }, { bomb: Math.floor(Math.random()* 24 ) + 16 }],
+      bombLocation: [{ bomb: Math.floor(Math.random()* 24 )}, { bomb: Math.floor(Math.random()* 24 )}, { bomb: Math.floor(Math.random()* 24 )}],
       countdown: 10
     }
   }
@@ -18,12 +18,14 @@ class App extends Component{
     while (treasure === bombLocation[0] || treasure === bombLocation[1] || treasure === bombLocation[2]) {
       treasure = Math.floor(Math.random() * 24)
       this.setState( { treasure: treasure })
+      this.setState( { bombLocation: bombLocation })
     }
   }
 
   handleChange = (i) => {
     let { squares, treasure, countdown, bombLocation } = this.state
     console.log(bombLocation)
+    console.log(`treasure: ${treasure}`)
     countdown --
     if (i !== treasure && countdown === 0){
         alert("Sorry you lost.")
@@ -43,10 +45,9 @@ class App extends Component{
   }
 
   handleReset = () => {
-    this.setState({squares:[...Array(25).fill("?")]})
-    this.setState({treasure:Math.floor(Math.random()* 24)})
-    this.setState({countdown: 10})
+    window.location.reload()
   }
+  
 
   render(){
     let { squares, questionMark } = this.state
