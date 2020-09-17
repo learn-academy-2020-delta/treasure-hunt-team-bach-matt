@@ -6,17 +6,30 @@ class App extends Component{
   constructor(props){
     super(props)
     this.state = {
-      squares: [...Array(9).fill("?")],
-      treasure: Math.floor(Math.random()* 8),
-      countdown: 5
+      squares: [...Array(25).fill("?")],
+      treasure: Math.floor(Math.random()* 24),
+      bombLocation: [{ bomb: Math.floor(Math.random()* 8 )}, { bomb: Math.floor(Math.random()* 16 ) + 8 }, { bomb: Math.floor(Math.random()* 24 ) + 16 }],
+      countdown: 10
+    }
+  }
+
+  componentDidMount = () => {
+    let { treasure, bombLocation } = this.state
+    while (treasure === bombLocation[0] || treasure === bombLocation[1] || treasure === bombLocation[2]) {
+      treasure = Math.floor(Math.random() * 24)
+      this.setState( { treasure: treasure })
     }
   }
 
   handleChange = (i) => {
-    let { squares, treasure, countdown } = this.state
+    let { squares, treasure, countdown, bombLocation } = this.state
+    console.log(bombLocation)
     countdown --
     if (i !== treasure && countdown === 0){
         alert("Sorry you lost.")
+      } else if (i === bombLocation[0].bomb || i === bombLocation[1].bomb || i === bombLocation[2].bomb) {
+        squares[i] = "💣"
+        setTimeout(function() {alert("You lose.");}, 300)
       } else if(i === treasure) {
         squares[i] = "🏆"
         setTimeout(function() {alert("You got it! Play again?");}, 300)
@@ -26,12 +39,13 @@ class App extends Component{
     console.log(squares)
     this.setState({ squares: squares }) 
     this.setState({countdown: countdown})
+    
   }
 
   handleReset = () => {
-    this.setState({squares:[...Array(9).fill("?")]})
-    this.setState({treasure:Math.floor(Math.random()* 8)})
-    this.setState({countdown: 5})
+    this.setState({squares:[...Array(25).fill("?")]})
+    this.setState({treasure:Math.floor(Math.random()* 24)})
+    this.setState({countdown: 10})
   }
 
   render(){
