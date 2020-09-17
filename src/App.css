@@ -21,3 +21,14 @@ body {
     justify-content: center;
     font-size: 90px;
 }
+button {
+    margin: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rebeccapurple;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+}
